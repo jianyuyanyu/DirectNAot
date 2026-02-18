@@ -49,7 +49,7 @@ public partial class CommandTarget : IOleCommandTarget, IConnectionPointContaine
     public static IEnumerable<CommandResult> TryExec(int targetPid, string moniker, Guid commandGroup, uint commandId, object? input)
     {
         ArgumentNullException.ThrowIfNull(moniker);
-        foreach (var unk in GetObjects(targetPid, moniker))
+        foreach (var (unk, pid) in GetObjects(targetPid, moniker))
         {
             using var target = ComObject.FromPointer<IOleCommandTarget>(unk);
             if (target is null)
@@ -57,7 +57,10 @@ public partial class CommandTarget : IOleCommandTarget, IConnectionPointContaine
 
             var result = getResult();
             if (result is not null)
+            {
+                result.ProcessId = pid;
                 yield return result;
+            }
 
             CommandResult? getResult()
             {
@@ -86,13 +89,13 @@ public partial class CommandTarget : IOleCommandTarget, IConnectionPointContaine
         return new CommandResult(hr, vo.Value);
     }
 
-    private static IEnumerable<nint> GetObjects(int targetPid, string moniker)
+    private static IEnumerable<(nint, int)> GetObjects(int targetPid, string moniker)
     {
         if (targetPid > 0)
         {
             var unk = RunningObjectTable.GetObject(moniker + ":" + targetPid, throwOnError: false);
             if (unk != 0)
-                yield return unk;
+                yield return (unk, targetPid);
 
             yield break;
         }
@@ -105,17 +108,22 @@ public partial class CommandTarget : IOleCommandTarget, IConnectionPointContaine
         foreach (var mk in RunningObjectTable.Enumerate(false))
         {
             var name = getName();
-            if (name != null)
+            if (name != null && name.StartsWith(Delimiter + moniker))
             {
-                if (name.StartsWith(Delimiter + moniker))
+                var remoteUnk = RunningObjectTable.GetObject(mk.Object, false);
+                if (remoteUnk != 0)
                 {
-                    var remoteUnk = RunningObjectTable.GetObject(mk.Object, false);
-                    if (remoteUnk != 0)
+                    // process id is appended to the moniker with a ":" delimiter, e.g. "!MyMoniker:1234"
+                    var pid = 0;
+                    var end = name.LastIndexOf(':');
+                    if (end > 0 && int.TryParse(name[(end + 1)..], out var p))
                     {
-                        yield return remoteUnk;
-                        if (targetPid == 0)
-                            break;
+                        pid = p;
                     }
+
+                    yield return (remoteUnk, pid);
+                    if (targetPid == 0) // first one
+                        break;
                 }
             }
             mk.Dispose();

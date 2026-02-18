@@ -13,7 +13,7 @@ public partial class SingleInstance(Guid groupId)
     public override string ToString() => $"{GroupId}";
 
     // well-known commands
-    public IEnumerable<CommandResult> SendCommandLine(Guid? desktopId = null, int targetPid = 0, IEnumerable<string?>? arguments = null) => Send(desktopId, targetPid, SingleInstanceCommandType.SendCommandLine, arguments?.ToArray());
+    public IEnumerable<CommandResult> SendCommandLine(Guid? desktopId = null, int targetPid = -1, IEnumerable<string?>? arguments = null) => Send(desktopId, targetPid, SingleInstanceCommandType.SendCommandLine, arguments?.ToArray());
     public IEnumerable<CommandResult> Quit(Guid? desktopId = null, int targetPid = -1) => Send(desktopId, targetPid, SingleInstanceCommandType.Quit);
     public IEnumerable<CommandResult> FailFast(Guid? desktopId = null, int targetPid = -1) => Send(desktopId, targetPid, SingleInstanceCommandType.FailFast);
     public IEnumerable<CommandResult> Ping(Guid? desktopId = null, int targetPid = -1) => Send(desktopId, targetPid, SingleInstanceCommandType.Ping);
@@ -37,17 +37,20 @@ public partial class SingleInstance(Guid groupId)
         return CommandTarget.TryExec(targetPid, ct.Moniker, GroupId, type, input.ToArray());
     }
 
-    public virtual void AllowSetForegroundWindow(Guid desktopId)
+    public virtual int AllowSetForegroundWindow(Guid? desktopId = null)
     {
+        var count = 0;
         foreach (var result in Ping(desktopId))
         {
-            if (result.HResult.IsOk &&
-                Conversions.TryChangeType<uint>(result.Output, out var pid)
-                && pid > 0)
+            if (result != null && result.ProcessId != 0 && result.ProcessId != Environment.ProcessId)
             {
-                Functions.AllowSetForegroundWindow(pid);
+                if (Functions.AllowSetForegroundWindow((uint)result.ProcessId))
+                {
+                    count++;
+                }
             }
         }
+        return count;
     }
 
     public virtual void UnregisterCommandTarget() => Interlocked.Exchange(ref _commandTarget, null)?.Dispose();
