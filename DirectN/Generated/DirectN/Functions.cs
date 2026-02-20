@@ -767,6 +767,20 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL CalculatePopupWindowPosition(in POINT anchorPoint, in SIZE windowSize, uint flags, nint /* optional RECT* */ excludeRect, out RECT popupWindowPosition);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callmsgfilterw
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL CallMsgFilterW(in MSG lpMsg, int nCode);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callnexthookex
+    [LibraryImport("USER32")]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial LRESULT CallNextHookEx(HHOOK hhk, int nCode, WPARAM wParam, LPARAM lParam);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-callwindowprocw
     [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16)]
     [SupportedOSPlatform("windows5.0")]
@@ -814,6 +828,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL ChangeClipboardChain(HWND hWndRemove, HWND hWndNewNext);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-changewindowmessagefilterex
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows6.1")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL ChangeWindowMessageFilterEx(HWND hwnd, uint message, WINDOW_MESSAGE_FILTER_ACTION action, nint /* optional CHANGEFILTERSTRUCT* */ pChangeFilterStruct);
     
     // https://learn.microsoft.com/windows/win32/api/icm/nf-icm-checkbitmapbits
     [LibraryImport("mscms", SetLastError = true)]
@@ -9563,7 +9584,7 @@ public static partial class Functions
     [LibraryImport("PROPSYS")]
     [SupportedOSPlatform("windows5.1.2600")]
     [PreserveSig]
-    public static partial HRESULT PSCreateMemoryPropertyStore(in Guid riid, out nint ppv);
+    public static partial HRESULT PSCreateMemoryPropertyStore(in Guid riid, out nint /* void */ ppv);
     
     // https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-psenumeratepropertydescriptions
     [LibraryImport("PROPSYS")]
@@ -10510,6 +10531,13 @@ public static partial class Functions
     [PreserveSig]
     public static partial int SetWindowRgn(HWND hWnd, HRGN hRgn, BOOL bRedraw);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowshookexw
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HHOOK SetWindowsHookExW(WINDOWS_HOOK_ID idHook, HOOKPROC lpfn, HINSTANCE hmod, uint dwThreadId);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setwindowtextw
     [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
     [SupportedOSPlatform("windows5.0")]
@@ -10838,6 +10866,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL TranslateMessage(in MSG lpMsg);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-unhookwindowshookex
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL UnhookWindowsHookEx(HHOOK hhk);
     
     // https://learn.microsoft.com/windows/win32/api/icm/nf-icm-uninstallcolorprofilea
     [LibraryImport("mscms", SetLastError = true)]

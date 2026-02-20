@@ -18547,6 +18547,40 @@ public static partial class Constants
     
     public const int GX_SCALE = 2;
     
+    public const uint HC_ACTION = 0;
+    
+    public const uint HC_GETNEXT = 1;
+    
+    public const uint HC_NOREM = 3;
+    
+    public const uint HC_NOREMOVE = 3;
+    
+    public const uint HC_SKIP = 2;
+    
+    public const uint HC_SYSMODALOFF = 5;
+    
+    public const uint HC_SYSMODALON = 4;
+    
+    public const uint HCBT_ACTIVATE = 5;
+    
+    public const uint HCBT_CLICKSKIPPED = 6;
+    
+    public const uint HCBT_CREATEWND = 3;
+    
+    public const uint HCBT_DESTROYWND = 4;
+    
+    public const uint HCBT_KEYSKIPPED = 7;
+    
+    public const uint HCBT_MINMAX = 1;
+    
+    public const uint HCBT_MOVESIZE = 0;
+    
+    public const uint HCBT_QS = 2;
+    
+    public const uint HCBT_SETFOCUS = 9;
+    
+    public const uint HCBT_SYSCOMMAND = 8;
+    
     public const int HEAPALIASINFO_MAPPEDDUMMY = 2;
     
     public const int HEAPALIASINFO_MAPPEDREAL = 1;
@@ -18616,6 +18650,38 @@ public static partial class Constants
     public const float HRTF_MIN_UNITY_GAIN_DISTANCE = 0.05f;
     
     public const uint HS_DDI_MAX = 6;
+    
+    public const uint HSHELL_ACCESSIBILITYSTATE = 11;
+    
+    public const uint HSHELL_ACTIVATESHELLWINDOW = 3;
+    
+    public const uint HSHELL_APPCOMMAND = 12;
+    
+    public const uint HSHELL_ENDTASK = 10;
+    
+    public const uint HSHELL_GETMINRECT = 5;
+    
+    public const uint HSHELL_HIGHBIT = 32768;
+    
+    public const uint HSHELL_LANGUAGE = 8;
+    
+    public const uint HSHELL_MONITORCHANGED = 16;
+    
+    public const uint HSHELL_REDRAW = 6;
+    
+    public const uint HSHELL_SYSMENU = 9;
+    
+    public const uint HSHELL_TASKMAN = 7;
+    
+    public const uint HSHELL_WINDOWACTIVATED = 4;
+    
+    public const uint HSHELL_WINDOWCREATED = 1;
+    
+    public const uint HSHELL_WINDOWDESTROYED = 2;
+    
+    public const uint HSHELL_WINDOWREPLACED = 13;
+    
+    public const uint HSHELL_WINDOWREPLACING = 14;
     
     public const uint HT_FLAG_8BPP_CMY332_MASK = 4278190080;
     
@@ -30388,6 +30454,30 @@ public static partial class Constants
     public static readonly Guid MSEventBinder = new("577faa18-4518-445e-8f70-1473f8cf4ba4");
     
     public const string MSFTEDIT_CLASS = @"RICHEDIT50W";
+    
+    public const uint MSGF_COMMCTRL_BEGINDRAG = 16896;
+    
+    public const uint MSGF_COMMCTRL_DRAGSELECT = 16898;
+    
+    public const uint MSGF_COMMCTRL_SIZEHEADER = 16897;
+    
+    public const uint MSGF_COMMCTRL_TOOLBARCUST = 16899;
+    
+    public const uint MSGF_DDEMGR = 32769;
+    
+    public const uint MSGF_DIALOGBOX = 0;
+    
+    public const uint MSGF_MAX = 8;
+    
+    public const uint MSGF_MENU = 2;
+    
+    public const uint MSGF_MESSAGEBOX = 1;
+    
+    public const uint MSGF_NEXTWINDOW = 6;
+    
+    public const uint MSGF_SCROLLBAR = 5;
+    
+    public const uint MSGF_USER = 4096;
     
     public static readonly Guid MSPID_PrimaryAudio = new("a35ff56b-9fda-11d0-8fdf-00c04fd9189d");
     

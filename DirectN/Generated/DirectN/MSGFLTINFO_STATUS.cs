@@ -1,0 +1,10 @@
+﻿#nullable enable
+namespace DirectN;
+
+public enum MSGFLTINFO_STATUS : uint
+{
+    MSGFLTINFO_NONE = 0,
+    MSGFLTINFO_ALLOWED_HIGHER = 3,
+    MSGFLTINFO_ALREADYALLOWED_FORWND = 1,
+    MSGFLTINFO_ALREADYDISALLOWED_FORWND = 2,
+}

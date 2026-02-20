@@ -29,5 +29,5 @@ public partial interface IWICBitmapSource
     // https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
     [PreserveSig]
     [return: MarshalAs(UnmanagedType.Error)]
-    HRESULT CopyPixels(in WICRect prc, uint cbStride, uint cbBufferSize, nint /* byte array */ pbBuffer);
+    HRESULT CopyPixels(nint /* optional WICRect* */ prc, uint cbStride, uint cbBufferSize, nint /* byte array */ pbBuffer);
 }
