@@ -1197,6 +1197,13 @@ public static partial class Functions
     [PreserveSig]
     public static partial int CopyAcceleratorTableW(HACCEL hAccelSrc, nint /* optional ACCEL* */ lpAccelDst, int cAccelEntries);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-copyicon
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HICON CopyIcon(HICON hIcon);
+    
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-copymetafilew
     [LibraryImport("GDI32", StringMarshalling = StringMarshalling.Utf16)]
     [SupportedOSPlatform("windows5.0")]
@@ -1358,6 +1365,13 @@ public static partial class Functions
     [LibraryImport("Windows.UI.dll")]
     [PreserveSig]
     public static partial HRESULT CreateControlInputEx(nint pCoreWindow, in Guid riid, out nint /* void */ ppv);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createcursor
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HCURSOR CreateCursor(HINSTANCE hInst, int xHotSpot, int yHotSpot, int nWidth, int nHeight, nint pvANDPlane, nint pvXORPlane);
     
     // https://learn.microsoft.com/windows/win32/api/ole2/nf-ole2-createdataadviseholder
     [LibraryImport("OLE32")]
@@ -2280,6 +2294,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL DestroyCaret();
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroycursor
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL DestroyCursor(HCURSOR hCursor);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-destroyicon
     [LibraryImport("USER32", SetLastError = true)]
@@ -3751,6 +3772,13 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HWND GetClipboardViewer();
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclipcursor
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetClipCursor(out RECT lpRect);
+    
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcliprgn
     [LibraryImport("GDI32")]
     [SupportedOSPlatform("windows5.0")]
@@ -3854,6 +3882,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HCURSOR GetCursor();
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcursorinfo
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetCursorInfo(ref CURSORINFO pci);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcursorpos
     [LibraryImport("USER32", SetLastError = true)]
@@ -4255,6 +4290,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HWND GetParent(HWND hWnd);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getphysicalcursorpos
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows6.0.6000")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetPhysicalCursorPos(out POINT lpPoint);
     
     // https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getphysicallyinstalledsystemmemory
     [LibraryImport("KERNEL32", SetLastError = true)]
@@ -7319,6 +7361,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HACCEL LoadAcceleratorsW(HINSTANCE hInstance, PWSTR lpTableName);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadcursorfromfilew
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HCURSOR LoadCursorFromFileW(PWSTR lpFileName);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadcursorw
     [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
@@ -10688,6 +10737,13 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HWND SetParent(HWND hWndChild, HWND hWndNewParent);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setphysicalcursorpos
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows6.0.6000")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL SetPhysicalCursorPos(int X, int Y);
+    
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setpixel
     [LibraryImport("GDI32")]
     [SupportedOSPlatform("windows5.0")]
@@ -10764,6 +10820,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL SetStandardColorSpaceProfileW(PWSTR pMachineName, uint dwProfileID, PWSTR pProfileName);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setsystemcursor
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL SetSystemCursor(HCURSOR hcur, SYSTEM_CURSOR_ID id);
     
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextalign
     [LibraryImport("GDI32")]
@@ -10997,6 +11060,12 @@ public static partial class Functions
     [SupportedOSPlatform("windows5.1.2600")]
     [PreserveSig]
     public static partial HRESULT SHLoadIndirectString(PWSTR pszSource, [MarshalUsing(CountElementName = nameof(cchOutBuf))] PWSTR pszOutBuf, uint cchOutBuf, nint /* optional void** */ ppvReserved);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showcursor
+    [LibraryImport("USER32")]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    public static partial int ShowCursor(BOOL bShow);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-showscrollbar
     [LibraryImport("USER32", SetLastError = true)]
