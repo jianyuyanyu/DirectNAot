@@ -1494,6 +1494,20 @@ public static partial class Functions
     [PreserveSig]
     public static partial HRESULT CreateHrtfApo(in HrtfApoInit init, [MarshalUsing(typeof(UniqueComInterfaceMarshaller<IXAPO>))] out IXAPO xApo);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createicon
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HICON CreateIcon(HINSTANCE hInstance, int nWidth, int nHeight, byte cPlanes, byte cBitsPixel, nint /* byte array */ lpbANDbits, nint /* byte array */ lpbXORbits);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-createiconindirect
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HICON CreateIconIndirect(in ICONINFO piconinfo);
+    
     // https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
     [LibraryImport("OLE32")]
     [SupportedOSPlatform("windows5.0")]
@@ -2658,6 +2672,13 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL DrawFocusRect(HDC hDC, in RECT lprc);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawicon
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL DrawIcon(HDC hDC, int X, int Y, HICON hIcon);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawiconex
     [LibraryImport("USER32", SetLastError = true)]
     [SupportedOSPlatform("windows5.0")]
@@ -2697,6 +2718,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL DuplicateHandle(HANDLE hSourceProcessHandle, HANDLE hSourceHandle, HANDLE hTargetProcessHandle, out HANDLE lpTargetHandle, uint dwDesiredAccess, BOOL bInheritHandle, DUPLICATE_HANDLE_OPTIONS dwOptions);
+    
+    // https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-duplicateicon
+    [LibraryImport("SHELL32")]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HICON DuplicateIcon(HINSTANCE hInst, HICON hIcon);
     
     // https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmattachmilcontent
     [LibraryImport("dwmapi")]
@@ -3524,6 +3552,12 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HICON ExtractAssociatedIconW(HINSTANCE hInst, [MarshalUsing(ConstantElementCount = 128)] PWSTR pszIconPath, ref ushort piIcon);
     
+    // https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticonexw
+    [LibraryImport("SHELL32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint ExtractIconExW(PWSTR lpszFile, int nIconIndex, nint /* optional HICON* */ phiconLarge, nint /* optional HICON* */ phiconSmall, uint nIcons);
+    
     // https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-extracticonw
     [LibraryImport("SHELL32", StringMarshalling = StringMarshalling.Utf16)]
     [SupportedOSPlatform("windows5.1.2600")]
@@ -4065,6 +4099,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL GetIconInfo(HICON hIcon, out ICONINFO piconinfo);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-geticoninfoexw
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows6.0.6000")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetIconInfoExW(HICON hicon, ref ICONINFOEXW piconinfo);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getkeyboardlayout
     [LibraryImport("USER32")]
@@ -7375,6 +7416,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HCURSOR LoadCursorW(HINSTANCE hInstance, PWSTR lpCursorName);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadiconw
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HICON LoadIconW(HINSTANCE hInstance, PWSTR lpIconName);
     
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-loadimagew
     [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]

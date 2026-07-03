@@ -7,6 +7,34 @@ public class Icon : IDisposable
     public HICON Handle => new() { Value = _handle };
     public virtual bool DestroyHandleOnDispose { get; set; }
 
+    public HCURSOR ToCursorHandle(uint xHotspot, uint yHotspot) => ToCursorHandle(Handle, xHotspot, yHotspot);
+    public static HCURSOR ToCursorHandle(HICON icon, uint xHotspot, uint yHotspot)
+    {
+        if (icon == 0)
+            return 0;
+
+        if (!Functions.GetIconInfo(icon, out var ii))
+            return 0;
+
+        ii.fIcon = false;
+        ii.xHotspot = xHotspot;
+        ii.yHotspot = yHotspot;
+
+        var cursor = Functions.CreateIconIndirect(ii);
+
+        if (ii.hbmColor != 0)
+        {
+            Functions.DeleteObject(new(ii.hbmColor));
+        }
+
+        if (ii.hbmMask != 0)
+        {
+            Functions.DeleteObject(new(ii.hbmMask));
+        }
+
+        return new(cursor);
+    }
+
     public static Icon? LoadApplicationIcon(int size = 16)
     {
         var path = Path.GetFileName(Process.GetCurrentProcess().MainModule?.FileName);
@@ -98,7 +126,7 @@ public class Icon : IDisposable
             var handle = Interlocked.Exchange(ref _handle, 0);
             if (handle != 0 && DestroyHandleOnDispose)
             {
-                Functions.DestroyIcon(new HICON { Value = handle });
+                Functions.DestroyIcon(new(handle));
             }
         }
     }
