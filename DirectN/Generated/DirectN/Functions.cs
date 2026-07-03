@@ -948,6 +948,12 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HMETAFILE CloseMetaFile(HDC hdc);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-closepackageinfo
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR ClosePackageInfo(in _PACKAGE_INFO_REFERENCE packageInfoReference);
+    
     // https://learn.microsoft.com/windows/win32/api/uxtheme/nf-uxtheme-closethemedata
     [LibraryImport("UXTHEME")]
     [SupportedOSPlatform("windows6.0.6000")]
@@ -3578,6 +3584,12 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL FillRgn(HDC hdc, HRGN hrgn, HBRUSH hbr);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-findpackagesbypackagefamily
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.1")]
+    [PreserveSig]
+    public static partial WIN32_ERROR FindPackagesByPackageFamily(PWSTR packageFamilyName, uint packageFilters, ref uint count, nint /* optional PWSTR* */ packageFullNames, ref uint bufferLength, [MarshalUsing(CountElementName = nameof(bufferLength))] PWSTR buffer, nint /* optional uint* */ packageProperties);
+    
     // https://learn.microsoft.com/windows/win32/api/libloaderapi/nf-libloaderapi-findresourceexw
     [LibraryImport("KERNEL32", StringMarshalling = StringMarshalling.Utf16)]
     [PreserveSig]
@@ -3645,6 +3657,12 @@ public static partial class Functions
     [PreserveSig]
     public static partial void FONTOBJ_vGetInfo(ref FONTOBJ pfo, uint cjSize, ref FONTINFO pfi);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-formatapplicationusermodelid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.1")]
+    [PreserveSig]
+    public static partial WIN32_ERROR FormatApplicationUserModelId(PWSTR packageFamilyName, PWSTR packageRelativeApplicationId, ref uint applicationUserModelIdLength, [MarshalUsing(CountElementName = nameof(applicationUserModelIdLength))] PWSTR applicationUserModelId);
+    
     // https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-formatmessagew
     [LibraryImport("KERNEL32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
     [SupportedOSPlatform("windows5.1.2600")]
@@ -3705,6 +3723,16 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HWND GetAncestor(HWND hwnd, GET_ANCESTOR_FLAGS gaFlags);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getapplicationusermodelid
+    [LibraryImport("KERNEL32")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetApplicationUserModelId(HANDLE hProcess, ref uint applicationUserModelIdLength, [MarshalUsing(CountElementName = nameof(applicationUserModelIdLength))] PWSTR applicationUserModelId);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getapplicationusermodelidfromtoken
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-1")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetApplicationUserModelIdFromToken(HANDLE token, ref uint applicationUserModelIdLength, [MarshalUsing(CountElementName = nameof(applicationUserModelIdLength))] PWSTR applicationUserModelId);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getasynckeystate
     [LibraryImport("USER32")]
     [SupportedOSPlatform("windows5.0")]
@@ -3728,6 +3756,13 @@ public static partial class Functions
     [SupportedOSPlatform("windows5.0")]
     [PreserveSig]
     public static partial int GetBitmapBits(HBITMAP hbit, int cb, nint lpvBits);
+    
+    // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapdimensionex
+    [LibraryImport("GDI32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetBitmapDimensionEx(HBITMAP hbit, out SIZE lpsize);
     
     // https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
     [LibraryImport("dxva2", SetLastError = true)]
@@ -3879,6 +3914,11 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL GetCountColorProfileElements(nint hProfile, out uint pnElementCount);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentapplicationusermodelid
+    [LibraryImport("KERNEL32")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetCurrentApplicationUserModelId(ref uint applicationUserModelIdLength, [MarshalUsing(CountElementName = nameof(applicationUserModelIdLength))] PWSTR applicationUserModelId);
+    
     // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagefamilyname
     [LibraryImport("KERNEL32")]
     [SupportedOSPlatform("windows8.0")]
@@ -3891,11 +3931,35 @@ public static partial class Functions
     [PreserveSig]
     public static partial WIN32_ERROR GetCurrentPackageFullName(ref uint packageFullNameLength, [MarshalUsing(CountElementName = nameof(packageFullNameLength))] PWSTR packageFullName);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetCurrentPackageId(ref uint bufferLength, nint /* optional byte* */ buffer);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageinfo
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetCurrentPackageInfo(uint flags, ref uint bufferLength, nint /* optional byte* */ buffer, nint /* optional uint* */ count);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackageinfo2
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-3")]
+    [SupportedOSPlatform("windows10.0.10240")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetCurrentPackageInfo2(uint flags, PackagePathType packagePathType, ref uint bufferLength, nint /* optional byte* */ buffer, nint /* optional uint* */ count);
+    
     // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagepath
     [LibraryImport("KERNEL32")]
     [SupportedOSPlatform("windows8.0")]
     [PreserveSig]
     public static partial WIN32_ERROR GetCurrentPackagePath(ref uint pathLength, [MarshalUsing(CountElementName = nameof(pathLength))] PWSTR path);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagepath2
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-3")]
+    [SupportedOSPlatform("windows10.0.10240")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetCurrentPackagePath2(PackagePathType packagePathType, ref uint pathLength, [MarshalUsing(CountElementName = nameof(pathLength))] PWSTR path);
     
     // https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess
     [LibraryImport("KERNEL32")]
@@ -4325,6 +4389,72 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL GetOpenFileNamePreviewW(ref OPENFILENAMEW lpofn);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefamilyname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageFamilyName(HANDLE hProcess, ref uint packageFamilyNameLength, [MarshalUsing(CountElementName = nameof(packageFamilyNameLength))] PWSTR packageFamilyName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefamilynamefromtoken
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-1")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageFamilyNameFromToken(HANDLE token, ref uint packageFamilyNameLength, [MarshalUsing(CountElementName = nameof(packageFamilyNameLength))] PWSTR packageFamilyName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefullname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageFullName(HANDLE hProcess, ref uint packageFullNameLength, [MarshalUsing(CountElementName = nameof(packageFullNameLength))] PWSTR packageFullName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagefullnamefromtoken
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-1")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageFullNameFromToken(HANDLE token, ref uint packageFullNameLength, [MarshalUsing(CountElementName = nameof(packageFullNameLength))] PWSTR packageFullName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageId(HANDLE hProcess, ref uint bufferLength, nint /* optional byte* */ buffer);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageinfo
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageInfo(in _PACKAGE_INFO_REFERENCE packageInfoReference, uint flags, ref uint bufferLength, nint /* optional byte* */ buffer, nint /* optional uint* */ count);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackageinfo2
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-3")]
+    [SupportedOSPlatform("windows10.0.10240")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackageInfo2(in _PACKAGE_INFO_REFERENCE packageInfoReference, uint flags, PackagePathType packagePathType, ref uint bufferLength, nint /* optional byte* */ buffer, nint /* optional uint* */ count);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepath
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackagePath(in PACKAGE_ID packageId, uint reserved, ref uint pathLength, [MarshalUsing(CountElementName = nameof(pathLength))] PWSTR path);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepathbyfullname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.1")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackagePathByFullName(PWSTR packageFullName, ref uint pathLength, [MarshalUsing(CountElementName = nameof(pathLength))] PWSTR path);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagepathbyfullname2
+    [LibraryImport("api-ms-win-appmodel-runtime-l1-1-3")]
+    [SupportedOSPlatform("windows10.0.10240")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackagePathByFullName2(PWSTR packageFullName, PackagePathType packagePathType, ref uint pathLength, [MarshalUsing(CountElementName = nameof(pathLength))] PWSTR path);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getpackagesbypackagefamily
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR GetPackagesByPackageFamily(PWSTR packageFamilyName, ref uint count, nint /* optional PWSTR* */ packageFullNames, ref uint bufferLength, [MarshalUsing(CountElementName = nameof(bufferLength))] PWSTR buffer);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getparent
     [LibraryImport("USER32", SetLastError = true)]
     [SupportedOSPlatform("windows5.0")]
@@ -4572,6 +4702,11 @@ public static partial class Functions
     [SupportedOSPlatform("windows5.0")]
     [PreserveSig]
     public static partial uint GetRegionData(HRGN hrgn, uint nCount, nint /* optional RGNDATA* */ lpRgnData);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getresolvedpackagefullnameforpackagedependency
+    [LibraryImport("KERNELBASE")]
+    [PreserveSig]
+    public static partial HRESULT GetResolvedPackageFullNameForPackageDependency(PWSTR packageDependencyId, out PWSTR packageFullName);
     
     // https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo
     [LibraryImport("api-ms-win-core-winrt-error-l1-1-0")]
@@ -9722,6 +9857,12 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial HDRVR OpenDriver(PWSTR szDriverName, PWSTR szSectionName, LPARAM lParam2);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-openpackageinfobyfullname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR OpenPackageInfoByFullName(PWSTR packageFullName, uint reserved, out nint packageInfoReference);
+    
     // https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess
     [LibraryImport("KERNEL32", SetLastError = true)]
     [SupportedOSPlatform("windows5.1.2600")]
@@ -9780,12 +9921,48 @@ public static partial class Functions
     [PreserveSig]
     public static partial HRESULT OPMXboxGetHDCPStatusAndType(ref OPM_HDCP_STATUS pHDCPStatus, ref OPM_HDCP_TYPE pHDCPType);
     
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefamilynamefromfullname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR PackageFamilyNameFromFullName(PWSTR packageFullName, ref uint packageFamilyNameLength, [MarshalUsing(CountElementName = nameof(packageFamilyNameLength))] PWSTR packageFamilyName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefamilynamefromid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR PackageFamilyNameFromId(in PACKAGE_ID packageId, ref uint packageFamilyNameLength, [MarshalUsing(CountElementName = nameof(packageFamilyNameLength))] PWSTR packageFamilyName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagefullnamefromid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR PackageFullNameFromId(in PACKAGE_ID packageId, ref uint packageFullNameLength, [MarshalUsing(CountElementName = nameof(packageFullNameLength))] PWSTR packageFullName);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packageidfromfullname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR PackageIdFromFullName(PWSTR packageFullName, uint flags, ref uint bufferLength, nint /* optional byte* */ buffer);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-packagenameandpublisheridfromfamilyname
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    public static partial WIN32_ERROR PackageNameAndPublisherIdFromFamilyName(PWSTR packageFamilyName, ref uint packageNameLength, [MarshalUsing(CountElementName = nameof(packageNameLength))] PWSTR packageName, ref uint packagePublisherIdLength, [MarshalUsing(CountElementName = nameof(packagePublisherIdLength))] PWSTR packagePublisherId);
+    
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-paintrgn
     [LibraryImport("GDI32", SetLastError = true)]
     [SupportedOSPlatform("windows5.0")]
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL PaintRgn(HDC hdc, HRGN hrgn);
+    
+    // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-parseapplicationusermodelid
+    [LibraryImport("KERNEL32")]
+    [SupportedOSPlatform("windows8.1")]
+    [PreserveSig]
+    public static partial WIN32_ERROR ParseApplicationUserModelId(PWSTR applicationUserModelId, ref uint packageFamilyNameLength, [MarshalUsing(CountElementName = nameof(packageFamilyNameLength))] PWSTR packageFamilyName, ref uint packageRelativeApplicationIdLength, [MarshalUsing(CountElementName = nameof(packageRelativeApplicationIdLength))] PWSTR packageRelativeApplicationId);
     
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-patblt
     [LibraryImport("GDI32", SetLastError = true)]

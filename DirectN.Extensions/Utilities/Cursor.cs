@@ -21,6 +21,21 @@ public class Cursor : IEquatable<Cursor>, IDisposable
     public HCURSOR Handle => new() { Value = _handle };
     public virtual bool DestroyHandleOnDispose { get; set; }
 
+    public SIZE Hotspot
+    {
+        get
+        {
+            if (_handle == 0)
+                return new();
+
+            Functions.GetIconInfo(_handle, out var ii);
+            if (ii.hbmColor == 0)
+                return new();
+
+            return new(ii.xHotspot, ii.yHotspot);
+        }
+    }
+
     public static readonly Cursor AppStarting = new(32650);
     public static readonly Cursor Arrow = new(32512);
     public static readonly Cursor Cross = new(32515);
@@ -55,6 +70,24 @@ public class Cursor : IEquatable<Cursor>, IDisposable
             return null;
 
         return new Cursor(handle) { DestroyHandleOnDispose = destroyHandleOnDispose };
+    }
+
+    public static Cursor? FromFilePath(string filePath, int cx = 0, int cy = 0, IMAGE_FLAGS flags = IMAGE_FLAGS.LR_LOADFROMFILE, bool destroyHandleOnDispose = false)
+    {
+        ArgumentNullException.ThrowIfNull(filePath);
+        flags |= IMAGE_FLAGS.LR_LOADFROMFILE;
+        var handle = Functions.LoadImageW(0, PWSTR.From(filePath), GDI_IMAGE_TYPE.IMAGE_CURSOR, cx, cy, flags);
+        return FromHandle(handle, destroyHandleOnDispose);
+    }
+
+    public static Cursor? FromIconFilePath(string filePath, uint xHotspot = 0, uint yHotspot = 0, int cx = 0, int cy = 0, IMAGE_FLAGS flags = IMAGE_FLAGS.LR_LOADFROMFILE, bool destroyHandleOnDispose = false)
+    {
+        ArgumentNullException.ThrowIfNull(filePath);
+        using var icon = Icon.FromFilePath(filePath, cx, cy, flags, destroyHandleOnDispose);
+        if (icon == null)
+            return null;
+
+        return FromIcon(icon, xHotspot, yHotspot, destroyHandleOnDispose);
     }
 
     public static Cursor? FromIcon(Icon? icon, uint xHotspot, uint yHotspot, bool destroyHandleOnDispose = false) => FromIcon(icon?.Handle ?? HICON.Null, xHotspot, yHotspot, destroyHandleOnDispose);

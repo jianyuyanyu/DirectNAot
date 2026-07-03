@@ -7,6 +7,22 @@ public class Icon : IDisposable
     public HICON Handle => new() { Value = _handle };
     public virtual bool DestroyHandleOnDispose { get; set; }
 
+    public SIZE Size
+    {
+        get
+        {
+            if (_handle == 0)
+                return new();
+
+            Functions.GetIconInfo(_handle, out var ii);
+            if (ii.hbmColor == 0)
+                return new();
+
+            // trick for icon
+            return new(ii.xHotspot * 2, ii.yHotspot * 2);
+        }
+    }
+
     public HCURSOR ToCursorHandle(uint xHotspot, uint yHotspot) => ToCursorHandle(Handle, xHotspot, yHotspot);
     public static HCURSOR ToCursorHandle(HICON icon, uint xHotspot, uint yHotspot)
     {
@@ -47,6 +63,14 @@ public class Icon : IDisposable
 
     public static Icon? Load(HMODULE module, int resourceId, int size = 16) =>
         FromHandle(Functions.LoadImageW(new HINSTANCE { Value = module.Value }, new PWSTR(resourceId), GDI_IMAGE_TYPE.IMAGE_ICON, size, size, 0).Value, true);
+
+    public static Icon? FromFilePath(string filePath, int cx = 0, int cy = 0, IMAGE_FLAGS flags = IMAGE_FLAGS.LR_LOADFROMFILE, bool destroyHandleOnDispose = false)
+    {
+        ArgumentNullException.ThrowIfNull(filePath);
+        flags |= IMAGE_FLAGS.LR_LOADFROMFILE;
+        var handle = Functions.LoadImageW(0, PWSTR.From(filePath), GDI_IMAGE_TYPE.IMAGE_ICON, cx, cy, flags);
+        return FromHandle(handle, destroyHandleOnDispose);
+    }
 
     public static Icon? FromHandle(nint handle, bool destroyHandleOnDispose = false)
     {
