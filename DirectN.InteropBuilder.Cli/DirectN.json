@@ -25,6 +25,7 @@
   // types that we want to include or exclude
   "TypeInputs": [
     "Windows.Win32.Devices.Display",
+    "Windows.Win32.Devices.HumanInterfaceDevice",
     "Windows.Win32.Graphics.Dwm*",
     "Windows.Win32.Graphics*",
     "Windows.Win32.UI.Controls.RichEdit*",
@@ -43,6 +44,7 @@
     "Windows.Win32.System.WinRT.Apis",
     "Windows.Win32.UI.ColorSystem",
     "Windows.Win32.UI.HiDpi",
+    "Windows.Win32.UI.Input",
     "Windows.Win32.UI.Input.Ink",
     "IAgileObject",
     "IAdviseSinkEx",
@@ -281,6 +283,7 @@
     "CreateEllipticRgnIndirect",
     "CreateEnhMetaFileW",
     "CreateErrorInfo",
+    "CreateFileW",
     "CreateFontIndirectW",
     "CreateHatchBrush",
     "CreateIcon",
@@ -819,6 +822,7 @@
     "HSHELL_*",
     "IDI_APPLICATION",
     "MSGF_*",
+    "NID_*",
     "NIN_*",
     "NM_*",
     "NOTIFYICON_*",

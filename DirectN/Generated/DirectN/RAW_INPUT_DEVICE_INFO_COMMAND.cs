@@ -1,0 +1,9 @@
+﻿#nullable enable
+namespace DirectN;
+
+public enum RAW_INPUT_DEVICE_INFO_COMMAND : uint
+{
+    RIDI_PREPARSEDDATA = 536870917,
+    RIDI_DEVICENAME = 536870919,
+    RIDI_DEVICEINFO = 536870923,
+}

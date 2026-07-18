@@ -1476,6 +1476,13 @@ public static partial class Functions
     [PreserveSig]
     public static partial HRESULT CreateErrorInfo([MarshalUsing(typeof(UniqueComInterfaceMarshaller<ICreateErrorInfo>))] out ICreateErrorInfo pperrinfo);
     
+    // https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew
+    [LibraryImport("KERNEL32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial HANDLE CreateFileW(PWSTR lpFileName, uint dwDesiredAccess, FILE_SHARE_MODE dwShareMode, nint /* optional SECURITY_ATTRIBUTES* */ lpSecurityAttributes, FILE_CREATION_DISPOSITION dwCreationDisposition, FILE_FLAGS_AND_ATTRIBUTES dwFlagsAndAttributes, HANDLE hTemplateFile);
+    
     // https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createfontindirectw
     [LibraryImport("GDI32", StringMarshalling = StringMarshalling.Utf16)]
     [SupportedOSPlatform("windows5.0")]
@@ -2241,6 +2248,13 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial LRESULT DefDriverProc(nuint dwDriverIdentifier, HDRVR hdrvr, uint uMsg, LPARAM lParam1, LPARAM lParam2);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-defrawinputproc
+    [LibraryImport("USER32")]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial LRESULT DefRawInputProc([In][MarshalUsing(CountElementName = nameof(nInput))] RAWINPUT[] paRawInput, int nInput, uint cbSizeHeader);
+    
     // https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-defsubclassproc
     [LibraryImport("COMCTL32")]
     [SupportedOSPlatform("windows5.1.2600")]
@@ -2423,6 +2437,10 @@ public static partial class Functions
     [LibraryImport("DDRAW", StringMarshalling = StringMarshalling.Utf16)]
     [PreserveSig]
     public static partial HRESULT DirectDrawEnumerateW(LPDDENUMCALLBACKW lpCallback, nint lpContext);
+    
+    [LibraryImport("DINPUT8")]
+    [PreserveSig]
+    public static partial HRESULT DirectInput8Create(HINSTANCE hinst, uint dwVersion, in Guid riidltf, out nint ppvOut, nint punkOuter);
     
     [LibraryImport("DSOUND")]
     [PreserveSig]
@@ -3776,6 +3794,13 @@ public static partial class Functions
     [PreserveSig]
     public static partial uint GetCaretBlinkTime();
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcimssm
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetCIMSSM(out INPUT_MESSAGE_SOURCE inputMessageSource);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclassinfow
     [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
     [SupportedOSPlatform("windows5.0")]
@@ -3918,6 +3943,13 @@ public static partial class Functions
     [LibraryImport("KERNEL32")]
     [PreserveSig]
     public static partial WIN32_ERROR GetCurrentApplicationUserModelId(ref uint applicationUserModelIdLength, [MarshalUsing(CountElementName = nameof(applicationUserModelIdLength))] PWSTR applicationUserModelId);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getcurrentinputmessagesource
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows8.0")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL GetCurrentInputMessageSource(out INPUT_MESSAGE_SOURCE inputMessageSource);
     
     // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getcurrentpackagefamilyname
     [LibraryImport("KERNEL32")]
@@ -4690,6 +4722,36 @@ public static partial class Functions
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL GetPS2ColorSpaceArray(nint hProfile, uint dwIntent, uint dwCSAType, nint /* optional byte* */ pPS2ColorSpaceArray, ref uint pcbPS2ColorSpaceArray, out BOOL pbBinary);
     
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputbuffer
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRawInputBuffer(nint /* optional RAWINPUT* */ pData, ref uint pcbSize, uint cbSizeHeader);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdata
+    [LibraryImport("USER32")]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRawInputData(HRAWINPUT hRawInput, RAW_INPUT_DATA_COMMAND_FLAGS uiCommand, nint /* optional void* */ pData, ref uint pcbSize, uint cbSizeHeader);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdeviceinfoa
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRawInputDeviceInfoA(HANDLE hDevice, RAW_INPUT_DEVICE_INFO_COMMAND uiCommand, nint /* optional void* */ pData, ref uint pcbSize);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdeviceinfow
+    [LibraryImport("USER32", StringMarshalling = StringMarshalling.Utf16, SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRawInputDeviceInfoW(HANDLE hDevice, RAW_INPUT_DEVICE_INFO_COMMAND uiCommand, nint /* optional void* */ pData, ref uint pcbSize);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawinputdevicelist
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRawInputDeviceList(nint /* optional RAWINPUTDEVICELIST* */ pRawInputDeviceList, ref uint puiNumDevices, uint cbSize);
+    
     // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getrawpointerdevicedata
     [LibraryImport("USER32", SetLastError = true)]
     [SupportedOSPlatform("windows8.0")]
@@ -4702,6 +4764,12 @@ public static partial class Functions
     [SupportedOSPlatform("windows5.0")]
     [PreserveSig]
     public static partial uint GetRegionData(HRGN hrgn, uint nCount, nint /* optional RGNDATA* */ lpRgnData);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getregisteredrawinputdevices
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    public static partial uint GetRegisteredRawInputDevices(nint /* optional RAWINPUTDEVICE* */ pRawInputDevices, ref uint puiNumDevices, uint cbSize);
     
     // https://learn.microsoft.com/windows/win32/api/appmodel/nf-appmodel-getresolvedpackagefullnameforpackagedependency
     [LibraryImport("KERNELBASE")]
@@ -7006,6 +7074,228 @@ public static partial class Functions
     [PreserveSig]
     public static partial void glViewport(int x, int y, int width, int height);
     
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_FlushQueue(HANDLE HidDeviceObject);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_FreePreparsedData(PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetAttributes(HANDLE HidDeviceObject, out HIDD_ATTRIBUTES Attributes);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetConfiguration(HANDLE HidDeviceObject, nint Configuration, uint ConfigurationLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetFeature(HANDLE HidDeviceObject, nint ReportBuffer, uint ReportBufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    public static partial void HidD_GetHidGuid(out Guid HidGuid);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetIndexedString(HANDLE HidDeviceObject, uint StringIndex, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetInputReport(HANDLE HidDeviceObject, nint ReportBuffer, uint ReportBufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetManufacturerString(HANDLE HidDeviceObject, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetMsGenreDescriptor(HANDLE HidDeviceObject, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetNumInputBuffers(HANDLE HidDeviceObject, out uint NumberBuffers);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetPhysicalDescriptor(HANDLE HidDeviceObject, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetPreparsedData(HANDLE HidDeviceObject, out PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetProductString(HANDLE HidDeviceObject, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_GetSerialNumberString(HANDLE HidDeviceObject, nint Buffer, uint BufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_SetConfiguration(HANDLE HidDeviceObject, in HIDD_CONFIGURATION Configuration, uint ConfigurationLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_SetFeature(HANDLE HidDeviceObject, nint ReportBuffer, uint ReportBufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_SetNumInputBuffers(HANDLE HidDeviceObject, uint NumberBuffers);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOLEAN HidD_SetOutputReport(HANDLE HidDeviceObject, nint ReportBuffer, uint ReportBufferLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetButtonArray(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, [MarshalUsing(CountElementName = nameof(ButtonDataLength))] out HIDP_BUTTON_ARRAY_DATA[] ButtonData, ref ushort ButtonDataLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetButtonCaps(HIDP_REPORT_TYPE ReportType, [MarshalUsing(CountElementName = nameof(ButtonCapsLength))] out HIDP_BUTTON_CAPS[] ButtonCaps, ref ushort ButtonCapsLength, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetCaps(PHIDP_PREPARSED_DATA PreparsedData, out HIDP_CAPS Capabilities);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetData(HIDP_REPORT_TYPE ReportType, [MarshalUsing(CountElementName = nameof(DataLength))] out HIDP_DATA[] DataList, ref uint DataLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetExtendedAttributes(HIDP_REPORT_TYPE ReportType, ushort DataIndex, PHIDP_PREPARSED_DATA PreparsedData, [MarshalUsing(CountElementName = nameof(LengthAttributes))] out HIDP_EXTENDED_ATTRIBUTES[] Attributes, ref uint LengthAttributes);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetLinkCollectionNodes([MarshalUsing(CountElementName = nameof(LinkCollectionNodesLength))] out HIDP_LINK_COLLECTION_NODE[] LinkCollectionNodes, ref uint LinkCollectionNodesLength, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetScaledUsageValue(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, out int UsageValue, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetSpecificButtonCaps(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, [MarshalUsing(CountElementName = nameof(ButtonCapsLength))] out HIDP_BUTTON_CAPS[] ButtonCaps, ref ushort ButtonCapsLength, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetSpecificValueCaps(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, [MarshalUsing(CountElementName = nameof(ValueCapsLength))] out HIDP_VALUE_CAPS[] ValueCaps, ref ushort ValueCapsLength, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetUsages(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, [MarshalUsing(CountElementName = nameof(UsageLength))] out ushort[] UsageList, ref uint UsageLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetUsagesEx(HIDP_REPORT_TYPE ReportType, ushort LinkCollection, [MarshalUsing(CountElementName = nameof(UsageLength))] ref USAGE_AND_PAGE[] ButtonList, ref uint UsageLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetUsageValue(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, out uint UsageValue, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetUsageValueArray(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, PSTR UsageValue, ushort UsageValueByteLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_GetValueCaps(HIDP_REPORT_TYPE ReportType, [MarshalUsing(CountElementName = nameof(ValueCapsLength))] out HIDP_VALUE_CAPS[] ValueCaps, ref ushort ValueCapsLength, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_InitializeReportForID(HIDP_REPORT_TYPE ReportType, byte ReportID, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    public static partial uint HidP_MaxDataListLength(HIDP_REPORT_TYPE ReportType, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    public static partial uint HidP_MaxUsageListLength(HIDP_REPORT_TYPE ReportType, ushort UsagePage, PHIDP_PREPARSED_DATA PreparsedData);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetButtonArray(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, [In][MarshalUsing(CountElementName = nameof(ButtonDataLength))] HIDP_BUTTON_ARRAY_DATA[] ButtonData, ushort ButtonDataLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetData(HIDP_REPORT_TYPE ReportType, [MarshalUsing(CountElementName = nameof(DataLength))] ref HIDP_DATA[] DataList, ref uint DataLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetScaledUsageValue(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, int UsageValue, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetUsages(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, [MarshalUsing(CountElementName = nameof(UsageLength))] ref ushort[] UsageList, ref uint UsageLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetUsageValue(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, uint UsageValue, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_SetUsageValueArray(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, ushort Usage, PSTR UsageValue, ushort UsageValueByteLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_TranslateUsagesToI8042ScanCodes([In][MarshalUsing(CountElementName = nameof(UsageListLength))] ushort[] ChangedUsageList, uint UsageListLength, HIDP_KEYBOARD_DIRECTION KeyAction, ref HIDP_KEYBOARD_MODIFIER_STATE ModifierState, PHIDP_INSERT_SCANCODES InsertCodesProcedure, nint /* optional void* */ InsertCodesContext);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_UnsetUsages(HIDP_REPORT_TYPE ReportType, ushort UsagePage, ushort LinkCollection, [MarshalUsing(CountElementName = nameof(UsageLength))] ref ushort[] UsageList, ref uint UsageLength, PHIDP_PREPARSED_DATA PreparsedData, PSTR Report, uint ReportLength);
+    
+    [LibraryImport("HID")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial NTSTATUS HidP_UsageListDifference([In][MarshalUsing(CountElementName = nameof(UsageListLength))] ushort[] PreviousUsageList, [In][MarshalUsing(CountElementName = nameof(UsageListLength))] ushort[] CurrentUsageList, [In][Out][MarshalUsing(CountElementName = nameof(UsageListLength))] ushort[] BreakUsageList, [In][Out][MarshalUsing(CountElementName = nameof(UsageListLength))] ushort[] MakeUsageList, uint UsageListLength);
+    
     // https://learn.microsoft.com/windows/win32/api/remotesystemadditionalinfo/nf-remotesystemadditionalinfo-hstring_userfree
     [LibraryImport("api-ms-win-core-winrt-string-l1-1-0")]
     [SupportedOSPlatform("windows8.0")]
@@ -7401,6 +7691,12 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL IsZoomed(HWND hWnd);
+    
+    // https://learn.microsoft.com/windows/win32/api/joystickapi/nf-joystickapi-joyconfigchanged
+    [LibraryImport("WINMM")]
+    [SupportedOSPlatform("windows5.0")]
+    [PreserveSig]
+    public static partial uint joyConfigChanged(uint dwFlags);
     
     // https://learn.microsoft.com/windows/win32/api/joystickapi/nf-joystickapi-joygetdevcapsa
     [LibraryImport("WINMM")]
@@ -10289,6 +10585,13 @@ public static partial class Functions
     [PreserveSig]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
     public static partial BOOL RegisterHotKey(HWND hWnd, int id, HOT_KEY_MODIFIERS fsModifiers, uint vk);
+    
+    // https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-registerrawinputdevices
+    [LibraryImport("USER32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL RegisterRawInputDevices([In][MarshalUsing(CountElementName = nameof(uiNumDevices))] RAWINPUTDEVICE[] pRawInputDevices, uint uiNumDevices, uint cbSize);
     
     // https://learn.microsoft.com/windows/win32/api/oleauto/nf-oleauto-registertypelib
     [LibraryImport("OLEAUT32")]

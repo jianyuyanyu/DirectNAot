@@ -14888,11 +14888,6 @@ public static partial class Constants
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT D3DERR_WRONGTEXTUREFORMAT = 0x88760818;
 
     // C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\dinputd.h
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_BADINF = 0x80040402;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_CANCELLED = 0x80040401;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_DRIVERFIRST = 0x80040300;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_DRIVERLAST = 0x800403FF;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_INVALIDCLASSINSTALLER = 0x80040400;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOMOREITEMS = 0x80070103;
 
     // C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\intsafe.h
@@ -15271,34 +15266,12 @@ public static partial class Constants
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_ALREADYINITIALIZED = 0x800704DF;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_BADDRIVERVER = 0x80070077;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_BETADIRECTINPUTVERSION = 0x80070481;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_DEVICEFULL = 0x80040201;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_DEVICENOTREG = 0x80040154;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_EFFECTPLAYING = 0x80040208;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_GENERIC = 0x80004005;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_HANDLEEXISTS = 0x80070005;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_HASEFFECTS = 0x80040204;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_INCOMPLETEEFFECT = 0x80040206;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_INPUTLOST = 0x8007001E;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_INSUFFICIENTPRIVS = 0x80040200;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_INVALIDPARAM = 0x80070057;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_MAPFILEFAIL = 0x8004020B;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_MOREDATA = 0x80040202;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOAGGREGATION = 0x80040110;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOINTERFACE = 0x80004002;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTACQUIRED = 0x8007000C;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTBUFFERED = 0x80040207;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTDOWNLOADED = 0x80040203;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTEXCLUSIVEACQUIRED = 0x80040205;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTFOUND = 0x80070002;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_NOTINITIALIZED = 0x80070015;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_OBJECTNOTFOUND = 0x80070002;
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_OLDDIRECTINPUTVERSION = 0x8007047E;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_OTHERAPPHASPRIO = 0x80070005;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_OUTOFMEMORY = 0x8007000E;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_READONLY = 0x80070005;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_REPORTFULL = 0x8004020A;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_UNPLUGGED = 0x80040209;
-    [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DIERR_UNSUPPORTED = 0x80004001;
 
     // C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\shared\netevent.h
     [MarshalAs(UnmanagedType.Error)] public static readonly HRESULT DFS_ERROR_ACTIVEDIRECTORY_OFFLINE = 0xC00038BB;

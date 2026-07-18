@@ -1,0 +1,17 @@
+﻿#nullable enable
+namespace DirectN;
+
+[Flags]
+public enum RAWINPUTDEVICE_FLAGS : uint
+{
+    RIDEV_REMOVE = 1,
+    RIDEV_EXCLUDE = 16,
+    RIDEV_PAGEONLY = 32,
+    RIDEV_NOLEGACY = 48,
+    RIDEV_INPUTSINK = 256,
+    RIDEV_CAPTUREMOUSE = 512,
+    RIDEV_NOHOTKEYS = 512,
+    RIDEV_APPKEYS = 1024,
+    RIDEV_EXINPUTSINK = 4096,
+    RIDEV_DEVNOTIFY = 8192,
+}
