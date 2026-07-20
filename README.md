@@ -91,6 +91,13 @@ It's dependent on DirectN AOT, .NET 10 and ... that's it. Once built, the fully 
 
 <img alt="WebView2 Sample" src="https://github.com/user-attachments/assets/e626a807-1cba-4b0b-a6ff-33a949f78806" width="50%">
 
+# AOTrino
+[AOTrino](https://github.com/aelyo-softworks/AOTrino) is Electron-like desktop apps on .NET Native AOT + WebView2 (using [WebView2Aot](https://github.com/smourier/WebView2Aot)). One executable, no runtime to install, no Chromium to ship — Windows already has both. x86, x64 and ARM64.
+
+A window is a real HWND, the UI is a web page, and the two talk over a typed bridge. That's the whole idea. The Fluent UI gallery below is an AOTrino app, and it weighs 4 MB.
+
+<img width="1180" height="820" alt="AOTrino Fluent Gallery" src="https://github.com/user-attachments/assets/8e260baf-5f13-41f7-90dc-56dc7cd8283d" />
+
 # ShellBat
 [ShellBat](https://github.com/smourier/ShellBat) is a modern Windows file explorer with file viewers, multi-instance workflows, terminal integration, search capabilities, and deep Windows Shell interoperability.
 
