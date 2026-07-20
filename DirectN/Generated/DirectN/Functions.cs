@@ -2383,6 +2383,13 @@ public static partial class Functions
     [PreserveSig]
     public static partial int DeviceCapabilitiesW(PWSTR pDevice, PWSTR pPort, PRINTER_DEVICE_CAPABILITIES fwCapability, PWSTR pOutput, nint /* optional DEVMODEW* */ pDevMode);
     
+    // https://learn.microsoft.com/windows/win32/api/ioapiset/nf-ioapiset-deviceiocontrol
+    [LibraryImport("KERNEL32", SetLastError = true)]
+    [SupportedOSPlatform("windows5.1.2600")]
+    [PreserveSig]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvStdcall)])]
+    public static partial BOOL DeviceIoControl(HANDLE hDevice, uint dwIoControlCode, nint /* optional void* */ lpInBuffer, uint nInBufferSize, nint /* optional void* */ lpOutBuffer, uint nOutBufferSize, nint /* optional uint* */ lpBytesReturned, nint /* optional OVERLAPPED* */ lpOverlapped);
+    
     // https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9
     [LibraryImport("d3d9")]
     [PreserveSig]
